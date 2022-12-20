@@ -1,0 +1,85 @@
+// --- Log in as root user and create new 'clerk' user --- //
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u root -p
+Enter password: ************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.30 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create user 'clerk'@'localhost' identified by 'b00ks';
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> grant all on *.* to 'clerk'@'localhost';
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> quit
+Bye
+
+
+// --- Log in as clerk user --- //
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>-u clerk -p
+'-u' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u clerk -p
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 13
+Server version: 8.0.30 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+
+// --- Create database and table and insert values --- //
+
+mysql> create database if not exists ebookstore;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> use ebookstore;
+Database changed
+mysql> create table books (id int NOT NULL, title varchar(100), author varchar(50), quantity int, primary key (id));
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> insert into books values (3001, 'A Tale of Two Cities', 'Charles Dickens', 30);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into books values (3002, 'Harry Potter and the Philosopher''s Stone', 'J.K.Rowling', 40);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into books values (3003, 'The Lion, the Witch and the Wardrobe', 'C. S. Lewis', 25);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into books values (3004, 'The Lord of the Rings', 'J.R.R Tolkien', 37);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into books values (3005, 'Alice in Wonderland', 'Lewis Carroll', 12);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from books;
++------+------------------------------------------+-----------------+----------+
+| id   | title                                    | author          | quantity |
++------+------------------------------------------+-----------------+----------+
+| 3001 | A Tale of Two Cities                     | Charles Dickens |       30 |
+| 3002 | Harry Potter and the Philosopher's Stone | J.K.Rowling     |       40 |
+| 3003 | The Lion, the Witch and the Wardrobe     | C. S. Lewis     |       25 |
+| 3004 | The Lord of the Rings                    | J.R.R Tolkien   |       37 |
+| 3005 | Alice in Wonderland                      | Lewis Carroll   |       12 |
++------+------------------------------------------+-----------------+----------+
+5 rows in set (0.00 sec)
+
+mysql>
